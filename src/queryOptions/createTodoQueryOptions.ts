@@ -4,6 +4,7 @@ import { queryOptions } from "@tanstack/react-query";
   return queryOptions({
     queryKey: ["todos"],
     queryFn: getTodos,
+    staleTime: 1000 * 60 
   })
 }
 
