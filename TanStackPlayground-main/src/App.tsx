@@ -3,9 +3,11 @@ import { createUser } from "./api"
 import { User } from "./types"
 import createUsersQueryOptions from "./queryOptions/createUsersQueryOptions"
 import Card from "./Card"
+import { useState } from "react"
 
 function App() {
-  const { data: users } = useQuery(createUsersQueryOptions())
+  const [state, setState] = useState(true)
+  const { data: users } = useQuery(createUsersQueryOptions(undefined, { enabled: state }))
 
   const { mutate } = useMutation({
     mutationFn: (user: Omit<User, "_id">) => createUser(user),

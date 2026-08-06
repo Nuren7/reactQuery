@@ -1,10 +1,17 @@
-import { queryOptions } from "@tanstack/react-query"
-import { GetUsersOptions } from "../types"
+import { queryOptions, UseQueryOptions } from "@tanstack/react-query"
+import { GetUsersOptions, GetUsersResponse } from "../types"
 import { getUsers } from "../api"
 
-export default function createUsersQueryOptions(params?: GetUsersOptions) {
+export default function createUsersQueryOptions<
+TData = GetUsersResponse, TError = Error
+>(
+  params?: GetUsersOptions, 
+  options?: Omit<UseQueryOptions<GetUsersResponse, TError, TData>, "queryKey" | "queryFn"
+  >
+) {
   return queryOptions({
     queryKey: ["users", params],
     queryFn: () => getUsers(params),
+    ...options
   })
 }
