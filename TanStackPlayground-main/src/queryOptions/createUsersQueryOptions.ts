@@ -16,6 +16,12 @@ TData = GetUsersResponse, TError = Error
     select: (data) => {
       return data.users
     },
-    refetchInterval: 1000 * 60 * 5, // 5 minutes
+    refetchInterval: () => {
+      return 1000
+    },
+    refetchOnWindowFocus: false, // if its "always" it will override staleTime
+    staleTime: 10000, //tanstack respects staletime over refetchOnWindowFocus
+    placeholderData: (prevData) => prevData,
+    //initialData:
   })
 }
