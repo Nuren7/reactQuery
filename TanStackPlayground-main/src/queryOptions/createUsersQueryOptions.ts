@@ -12,6 +12,10 @@ TData = GetUsersResponse, TError = Error
   return queryOptions({
     queryKey: ["users", params],
     queryFn: () => getUsers(params),
-    ...options
+    ...options,
+    select: (data) => {
+      return data.users
+    },
+    refetchInterval: 1000 * 60 * 5, // 5 minutes
   })
 }
